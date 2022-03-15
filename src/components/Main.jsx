@@ -18,10 +18,21 @@ export function Main () {
   }
 
   function handleKeyPress () {
-    if(event === 13) {alert('oi')}
+      if (event.charCode === 13) {
+        query()
+    };
+  }
+
+  function verifyStateInput () {
+    if (photo === '') {
+      alert('Insira uma palavra e tente novamente! :D')
+      useEffect()
+      return
+    }
   }
 
   function query () {
+    verifyStateInput()
     const queryUrl =`https://api.unsplash.com/search/photos?page=1&query="${photo}"&client_id=${key}`
     axios.get(queryUrl).then(response=> {setBook(response.data.results)})
     console.log(book);
@@ -37,6 +48,8 @@ export function Main () {
           <input
             type="text"
             onChange={handleInputPhoto}
+            onKeyPress={handleKeyPress}
+
             placeholder='Digite sua busca'
           />
           <button 
